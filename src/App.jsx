@@ -10,16 +10,23 @@ const App = () => {
   const [inputCity, setInputCity] = useState('')
   const [userLocation, setUserLocation] = useState(null)
   const [cities, setCities] = useState([])
+  const [renderCities, setRenderCities] = useState([])
   const [city, setCity] = useState(null)
   const [fetching, setFetching] = useState({
     loading: '',
     error: null
   })
-  console.log('🚀 ~ file: App.jsx ~ line 13 ~ App ~ city', city)
+
+  const recentlyCities = () => {
+    const newCities = cities.slice(1)
+    console.log(cities)
+    console.log(newCities)
+    setRenderCities(newCities)
+  }
 
   const fetchCity = async (city) => {
     setFetching({
-      loading: 'loading',
+      loading: 'pending',
       error: null
     })
     try {
@@ -37,6 +44,10 @@ const App = () => {
       })
     }
   }
+
+  useEffect(() => {
+    recentlyCities()
+  }, [cities])
 
   useEffect(() => {
     getUserLocation()
@@ -61,7 +72,6 @@ const App = () => {
     }
     if (cities.length >= 6) {
       const newCities = cities.slice(0, 5)
-      console.log(newCities)
       setCities([city, ...newCities])
       return
     }
@@ -74,8 +84,6 @@ const App = () => {
     fetchCity(inputCity)
     setInputCity('')
   }
-
-  console.log(fetching.loading)
 
   return (
     <div className='App'>
@@ -114,7 +122,7 @@ const App = () => {
         <section className='second-section'>
           <h1>Ultimas Busquedas</h1>
           <div className='cities-container'>
-            {cities.map((city, index) => {
+            {cities.length >= 2 && renderCities.map((city, index) => {
               return (
                 <City
                   key={index}

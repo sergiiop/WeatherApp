@@ -71,7 +71,8 @@
   grid-template-columns: repeat(3, 1fr);
   column-gap: 2rem;
   overflow-y: scroll;
-  height: 50vh;
+  max-height: 350px;
+  margin-bottom: 2rem;
 }
 
 ::-webkit-scrollbar {
@@ -79,7 +80,11 @@
 }
 
 .loader-container{
-  margin-top: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  height: 150px;
 }
 
 @media (max-width: 1700px) {
