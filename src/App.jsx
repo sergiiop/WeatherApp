@@ -19,7 +19,7 @@ const App = () => {
 
   const fetchCity = async (city) => {
     setFetching({
-      loading: 'success',
+      loading: 'loading',
       error: null
     })
     try {
