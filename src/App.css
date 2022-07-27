@@ -8,7 +8,7 @@
 
 .App-container{
   background: white;
-  min-height: 90vh;
+  min-height: 60vh;
   width: 65%;
   background: linear-gradient(to right bottom, rgba(255,255,255,0.7), rgba(255,255,255,0.3));
   border-radius: 2rem;
@@ -71,8 +71,27 @@
   grid-template-columns: repeat(3, 1fr);
   column-gap: 2rem;
   overflow-y: scroll;
+  height: 50vh;
 }
 
 ::-webkit-scrollbar {
   display: none;
+}
+
+.loader-container{
+  margin-top: 3rem;
+}
+
+@media (max-width: 1700px) {
+  .cities-container{
+    grid-template-columns: repeat(2, 1fr);
+    margin-bottom: 4rem;
+  }
+}
+
+@media (max-width: 1250px) {
+  .cities-container{
+    grid-template-columns: repeat(1, 1fr);
+    margin-bottom: 4rem;
+  }
 }

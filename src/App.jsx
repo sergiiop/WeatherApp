@@ -1,26 +1,56 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 // import { getUserLocation } from './helpers'
 import { getOneCity } from './services'
 import './App.css'
 import { City } from './components/City'
+import { getUserLocation } from './helpers/getUserLocation'
+import { Loader } from './components/Loader'
 
 const App = () => {
   const [inputCity, setInputCity] = useState('')
+  const [userLocation, setUserLocation] = useState(null)
   const [cities, setCities] = useState([])
   const [city, setCity] = useState(null)
+  const [fetching, setFetching] = useState({
+    loading: '',
+    error: null
+  })
+  console.log('🚀 ~ file: App.jsx ~ line 13 ~ App ~ city', city)
 
-  // useEffect(() => {
-  //   getUserLocation()
-  //     .then(lngLat => )
-  // }, [])
+  const fetchCity = async (city) => {
+    setFetching({
+      loading: 'success',
+      error: null
+    })
+    try {
+      const newCity = await getOneCity(city)
+      setCity(newCity)
+      addCity(newCity)
+      setFetching({
+        loading: 'success',
+        error: null
+      })
+    } catch (error) {
+      setFetching({
+        loading: 'rejected',
+        error: error.message
+      })
+    }
+  }
 
-  // useEffect(() => {
-  //   const fetchCity = async () => {
-  //     const result = await getOneCity('Monteria')
-  //     setCity(result)
-  //   }
-  //   fetchCity()
-  // }, [])
+  useEffect(() => {
+    getUserLocation()
+      .then(lngLat => {
+        const currentCity = lngLat.reverse().join().trim()
+        setUserLocation(currentCity)
+      })
+  }, [])
+
+  useEffect(() => {
+    if (userLocation !== null) {
+      fetchCity(userLocation)
+    }
+  }, [userLocation])
 
   const addCity = (city) => {
     if (cities.length >= 2 && (city.location.name === cities[0].location.name)) return
@@ -41,16 +71,11 @@ const App = () => {
   const handleSubmit = async (event) => {
     event.preventDefault()
     // TODO: SetLoading
-    try {
-      const newCity = await getOneCity(inputCity)
-      setCity(newCity)
-      addCity(newCity)
-      setInputCity('')
-      // TODO: SetFulfilled
-    } catch (error) {
-      console.error(error.message)
-    }
+    fetchCity(inputCity)
+    setInputCity('')
   }
+
+  console.log(fetching.loading)
 
   return (
     <div className='App'>
@@ -66,7 +91,15 @@ const App = () => {
           </form>
         </div>
         <div className='city-container'>
-          {city && (
+          {fetching.loading === 'pending' && (
+            <div className='loader-container'>
+              <Loader />
+            </div>
+          )}
+          {fetching.loading === 'rejected' && (
+            <h1>Error</h1>
+          )}
+          {fetching.loading === 'success' && city && (
             <City
               conditionText={city.current.condition.text}
               isDay={city.current.is_day}

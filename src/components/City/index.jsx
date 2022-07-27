@@ -6,7 +6,7 @@ const City = ({ conditionText, isDay, tempC, humidity, country, name, icon }) =>
     <CityContent shadowColor={backGroundsCitys[backGroundColor(conditionText, isDay)]}>
       <span className='city-temp'>{tempC} <span className='grade'>°</span></span>
       <span className='city-humidity'>H: {humidity}</span>
-      <span className='city-region'>{country}, <br />{name}</span>
+      <span className='city-region'>{name}, <br />{country}</span>
       <div className='city-conditions'>
         <img className='condition-icon' src={icon} />
         <span className='city-condition'>{conditionText}</span>
