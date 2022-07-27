@@ -12,4 +12,5 @@ export const CityContent = styled.div`
   background-image: ${shadowColor};
   box-shadow:   0px 10px 15px -3px rgba(0,0,0,0.1);
   border-radius: 0.5rem;
+  height: 150px;
 `
