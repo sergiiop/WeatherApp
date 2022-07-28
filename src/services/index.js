@@ -1,8 +1,6 @@
 import axios from 'axios'
 
-const apiKey = import.meta.env.VITE_API_KEY
-
-const baseUrl = `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=`
+const baseUrl = import.meta.env.VITE_FETCH_URL
 
 export const getOneCity = async (city) => {
   const res = await axios.get(`${baseUrl}${city}&aqi=yes`)
