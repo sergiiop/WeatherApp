@@ -7,7 +7,6 @@
 }
 
 .App-container{
-  background: white;
   min-height: 60vh;
   width: 65%;
   background: linear-gradient(to right bottom, rgba(255,255,255,0.7), rgba(255,255,255,0.3));
@@ -28,47 +27,13 @@
   padding: 0.5rem 0.4rem 0.4rem 2rem;
 }
 
-.city-temp{
-  position: relative;
-  font-weight: 600;
-  font-size: 4rem;
-  margin-bottom: 1rem;
-}
-
-.grade{
-  position: absolute;
-  font-size: 4rem;
-  font-weight: 700;
-}
-
-.city-condition{
-  font-size: 1.2rem;
-  position: absolute;
-  bottom: 0;
-}
-
 .second-section{
   margin-top: 4rem;
 }
 
-.condition-icon{
-  width: 100px;
-}
-
-.city-conditions{
-  position: absolute;
-  top: 10px;
-  right: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: end;
-  align-items: center;
-  padding-right: 2rem
-}
-
 .cities-container{
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 350px);
   column-gap: 2rem;
   overflow-y: scroll;
   max-height: 350px;
@@ -87,16 +52,35 @@
   height: 150px;
 }
 
+.city-container{
+  position: relative;
+  width: 90%;
+  min-width: 220px;
+  max-width: 350px;
+}
+
 @media (max-width: 1700px) {
   .cities-container{
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 350px);
     margin-bottom: 4rem;
   }
 }
 
 @media (max-width: 1250px) {
   .cities-container{
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: 350px;
     margin-bottom: 4rem;
   }
+}
+
+@media (max-width: 720px) {
+  .App-container{
+    width: 85%;
+  }
+  .cities-container{
+    grid-template-columns: minmax(220px, 320px);
+    margin-bottom: 4rem;
+    padding: 0 2rem;
+  }
+  
 }
